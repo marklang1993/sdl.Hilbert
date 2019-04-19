@@ -15,13 +15,6 @@ public class HilbertView extends View {
 
     private int order = 1;
 
-    private HilbertTurtle turtle = new HilbertTurtle(new Turtle.Drawer() {
-        @Override
-        public void drawLine(double x0, double y0, double x1, double y1) {
-            canvas.drawLine((float) x0, (float) y0, (float) x1, (float) y1, paint);
-        }
-    });
-
     public HilbertView(Context context) {
         this(context, null);
     }
@@ -35,7 +28,7 @@ public class HilbertView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
         this.canvas = canvas;
 
@@ -48,9 +41,17 @@ public class HilbertView extends View {
         paint.setStrokeWidth(3);
         int size = Math.min(w, h);
         double step = (double) size / (1 << order);
+
+        HilbertTurtle turtle = new HilbertTurtle(new Turtle.Drawer() {
+            @Override
+            public void drawLine(double x0, double y0, double x1, double y1) {
+                canvas.drawLine((float) x0, (float) y0, (float) x1, (float) y1, paint);
+            }
+        }, order, step, HilbertTurtle.R);
         turtle.setPos((w - size + step) / 2, (h + size - step) / 2);
         turtle.setDir(HilbertTurtle.E);
-        turtle.draw(order, step, HilbertTurtle.R);
+
+        turtle.run();
     }
 
     public void setOrder(int n) {

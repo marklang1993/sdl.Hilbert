@@ -8,10 +8,10 @@ public class Turtle {
     public static final double R = Math.PI / 2, L = -R;
     public static final double N = 0.0, E = Math.PI / 2, S = Math.PI, W = E + S;
 
-    private double x = 0.0, y = 0.0;
-    private double dir = 0.0;
+    protected double x = 0.0, y = 0.0;
+    protected double dir = 0.0;
 
-    private Drawer drawer;
+    protected Drawer drawer;
 
     public Turtle(Drawer drawer) {
         this.drawer = drawer;
