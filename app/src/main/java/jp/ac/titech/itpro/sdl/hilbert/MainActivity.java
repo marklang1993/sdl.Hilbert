@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final static String ORDER_KEY_NAME = "jp.ac.titech.itpro.sdl.hilbert.ORDER";
+
     private final static int MAX_ORDER = 9;
     private int order = 1;
 
@@ -19,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            order = savedInstanceState.getInt(ORDER_KEY_NAME);
+        }
+
         setContentView(R.layout.activity_main);
 
         orderView = findViewById(R.id.order_view);
@@ -42,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
                 display();
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ORDER_KEY_NAME, order);
     }
 
     @Override
